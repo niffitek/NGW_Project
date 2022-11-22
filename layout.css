@@ -1,0 +1,118 @@
+body {
+  margin: auto;
+  padding-top: 5rem;
+  width: 60vw;
+  font-family: sans-serif;
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+
+h2 {
+  color: grey;
+  font-size: 0.75rem;
+  font-weight: 100;
+}
+
+h3 {
+  color: grey;
+  font-size: 0.75rem;
+  font-weight: 400;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+h4 {
+  font-size: 1.3rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  color: grey;
+  font-size: 0.8rem;
+  font-weight: 200;
+}
+
+a {
+  color: #23A6F0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+img {
+  width: 20vw;
+  height: 20vw;
+  object-fit: cover;
+  object-position: center;
+}
+.image {
+  display: inline-block;
+}
+
+.nelly {
+  object-position: right;
+}
+
+.box1, .box2, .box3 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.text {
+  margin-left: 3rem;
+  display: inline-block;
+}
+
+input{
+    outline: none;
+    border: none;
+}
+
+.multi-selector{
+    width: max-content;
+}
+.select-field{
+    border: 1px solid rgb(187, 187, 187);
+}
+.select-field,.category,.list{
+    width: 100%;
+    background-color: white;
+    padding: 0.3rem;
+}
+.list{
+    display: none;
+}
+.down-arrow{
+    font-size: 1rem;
+    display: inline-block;
+    cursor: pointer;
+    color: grey;
+    transition: 0.2s linear;
+}
+.category{
+    display: block;
+    padding-left: 0;
+}
+.category span{
+    float: right;
+    font-size: 0.6rem;
+    padding-top: 6px;
+}
+.category:hover{
+    background-color: #23A6F040;
+}
+.show{
+    display: block;
+}
+.rotate180{
+    transform: rotate(-180deg);
+}
+label {
+  font-size: 0.8rem;
+}

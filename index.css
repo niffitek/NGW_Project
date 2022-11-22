@@ -72,6 +72,12 @@ img {
 input{
     outline: none;
     border: none;
+    background-color: #F9F9F9;
+    cursor: default;
+}
+
+label {
+  font-size: 0.75rem;
 }
 
 .multi-selector-category, .multi-selector-expert{
@@ -79,57 +85,62 @@ input{
     display: inline-block;
     margin-top: 2rem;
 }
+
+.select-field-category,.select-field-expert{
+    border: 1px solid #E6E6E6;
+}
+
+.select-field-expert, .select-field-category,.category,.expert{
+    background-color: #F9F9F9;
+    padding: 0.4rem;
+}
+
 .multi-selector-category {
   margin-right: 10rem;
 }
 
-.select-field-category,.select-field-expert{
-    border: 1px solid rgb(187, 187, 187);
-}
-.select-field-expert, .select-field-category,.category,.expert,.listCatergory,.listExpert{
-    background-color: white;
-    padding: 0.4rem;
-}
-.listCatergory, .listExpert{
-    display: none;
-    background-color: white;
-    border-bottom: 0.5px solid grey;
-    border-left: 0.5px solid grey;
-    border-right: 0.5px solid grey;
-    position:absolute;
+.listCatergory,.listExpert{
+    background-color: #F9F9F9;
+    padding: 0;
 }
 
-.listCatergory {
-  padding-right: 4.5rem;
+.category {
+  padding-right: 0.05rem;
 }
-.listExpert {
-  padding-right: 4.63rem;
+
+.expert {
+  padding-right: 4.48rem;
 }
+
 .down-arrow-category, .down-arrow-expert{
     font-size: 1rem;
     display: inline-block;
-    cursor: pointer;
     color: grey;
     transition: 0.2s linear;
+    cursor: default;
 }
+
 .category, .expert{
     display: block;
-    padding-left: 0;
 }
-.category span, .expert span{
-    float: right;
-    font-size: 0.6rem;
-    padding-top: 6px;
+
+.listCatergory, .listExpert{
+    border-bottom: 0.5px solid #E6E6E6;
+    border-left: 0.5px solid #E6E6E6;
+    border-right: 0.5px solid #E6E6E6;
+    position:absolute;
+    padding: 0.5rem 0.57rem 0.8rem 0.2rem;
+    display: none;
 }
+
 .category:hover, .expert:hover{
     background-color: #23A6F040;
 }
+
 .show{
     display: block;
 }
+
 .rotate180 {
     transform: rotate(-180deg);
-}
-label {
-  font-size: 0.8rem;
 }

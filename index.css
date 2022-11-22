@@ -74,43 +74,60 @@ input{
     border: none;
 }
 
-.multi-selector{
+.multi-selector-category, .multi-selector-expert{
     width: max-content;
+    display: inline-block;
+    margin-top: 2rem;
 }
-.select-field{
+.multi-selector-category {
+  margin-right: 10rem;
+}
+
+.select-field-category,.select-field-expert{
     border: 1px solid rgb(187, 187, 187);
 }
-.select-field,.category,.list{
-    width: 100%;
+.select-field-expert, .select-field-category,.category,.expert,.listCatergory,.listExpert{
     background-color: white;
-    padding: 0.3rem;
+    padding: 0.4rem;
 }
-.list{
+.listCatergory, .listExpert{
     display: none;
+    background-color: white;
+    border-bottom: 0.5px solid grey;
+    border-left: 0.5px solid grey;
+    border-right: 0.5px solid grey;
+    position:absolute;
 }
-.down-arrow{
+
+.listCatergory {
+  padding-right: 4.5rem;
+}
+.listExpert {
+  padding-right: 0.8rem;
+}
+.down-arrow-category, .down-arrow-expert{
     font-size: 1rem;
     display: inline-block;
     cursor: pointer;
     color: grey;
     transition: 0.2s linear;
 }
-.category{
+.category, .expert{
     display: block;
     padding-left: 0;
 }
-.category span{
+.category span, .expert span{
     float: right;
     font-size: 0.6rem;
     padding-top: 6px;
 }
-.category:hover{
+.category:hover, .expert:hover{
     background-color: #23A6F040;
 }
 .show{
     display: block;
 }
-.rotate180{
+.rotate180 {
     transform: rotate(-180deg);
 }
 label {

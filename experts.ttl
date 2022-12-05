@@ -21,3 +21,15 @@
 :computer_programming a :category;
   :id "computer_programming";
   :name "Computer programming" .
+
+:scientists a :expert;
+  :id "scientists";
+  :name "Scientists" .
+
+:writers a :expert;
+  :id "writers";
+  :name "Writers" .
+
+:others a :expert;
+  :id "others";
+  :name "Others" .

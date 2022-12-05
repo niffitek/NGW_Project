@@ -15,7 +15,7 @@ $rdf.parse(
     "text/turtle"
 )
 
-const stringQuery = `
+const stringQueryCategory = `
 	SELECT
 		?id
 		?name
@@ -25,13 +25,24 @@ const stringQuery = `
 		?category <http://example.org/name> ?name .
 	}
 `
+const stringQueryExperts = `
+	SELECT
+		?id
+		?name
+	WHERE {
+		?expert a <http://example.org/expert> .
+		?expert <http://example.org/id> ?id .
+		?expert <http://example.org/name> ?name .
+	}
+`
 
-const query = $rdf.SPARQLToQuery(stringQuery, false, store)
+const queryCategory = $rdf.SPARQLToQuery(stringQueryCategory, false, store)
+const queryExperts = $rdf.SPARQLToQuery(stringQueryExperts, false, store)
 
 // To see what we get back as result:
 // console.log(store.querySync(query))
 
-const categories = store.querySync(query).map(
+const categories = store.querySync(queryCategory).map(
     categoryResult => {
         return {
             id: categoryResult['?id'].value,
@@ -39,8 +50,16 @@ const categories = store.querySync(query).map(
         }
     }
 )
+const experts = store.querySync(queryExperts).map(
+    expertResult => {
+        return {
+            id: expertResult['?id'].value,
+            name: expertResult['?name'].value,
+        }
+    }
+)
 
-console.log(categories)
+console.log(experts)
 
 const app = express()
 
@@ -55,7 +74,8 @@ app.get("/layout.css", function(request, response) {
 app.get("/", function (request, response){
 
     const model = {
-        categories: categories
+        categories: categories,
+        experts: experts
     }
 
     response.render("start.hbs", model)

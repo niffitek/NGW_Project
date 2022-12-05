@@ -5,7 +5,6 @@
         <input type="text" name="categories" placeholder="All categories">
         <span class="down-arrow-category">&blacktriangledown;</span>
       </div>
-
       <div class="listCategory">
           {{#each categories}}
               <label class="category">
@@ -15,31 +14,23 @@
           {{/each}}
       </div>
   </div>
-div class="multi-selector-expert">
-<div class="select-field-expert">
-    <input type="text" name="categories" placeholder="All experts">
-    <span class="down-arrow-expert">&blacktriangledown;</span>
+
+  <div class="multi-selector-expert">
+    <div class="select-field-expert">
+      <input type="text" name="experts" placeholder="All experts">
+      <span class="down-arrow-expert">&blacktriangledown;</span>
+    </div>
+    <div class="listExpert">
+      {{#each experts}}
+        <label class="expert">
+            <input type="checkbox" name="{{name}}" id="{{id}}">
+            {{name}}
+        </label>
+      {{/each}}
+    </div>
 </div>
 
-<div class="listExpert">
-    <label class="expert">
-        <input type="checkbox" name="">
-        All Experts
-    </label>
-    <label class="expert">
-        <input type="checkbox" name="">
-        Scientists
-    </label>
-    <label class="expert">
-        <input type="checkbox" name="">
-        Writers
-    </label>
-    <label class="expert">
-        <input type="checkbox" name="">
-        Others
-    </label>
-</div>
-  <div class="box1">
+<div class="box1">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Donald_Norman_at_AWF05.jpg/300px-Donald_Norman_at_AWF05.jpg" alt="Donald_Norman">
     <div class="text">
       <h3>Author</h3>
@@ -79,7 +70,7 @@ div class="multi-selector-expert">
           <script>
           document.querySelector('.select-field-category').addEventListener('click',()=>
             {
-              document.querySelector('.listCatergory').classList.toggle('show');
+              document.querySelector('.listCategory').classList.toggle('show');
               document.querySelector('.down-arrow-category').classList.toggle('rotate180');
             });
 

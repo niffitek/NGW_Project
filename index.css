@@ -72,47 +72,75 @@ img {
 input{
     outline: none;
     border: none;
+    background-color: #F9F9F9;
+    cursor: default;
 }
 
-.multi-selector{
+label {
+  font-size: 0.75rem;
+}
+
+.multi-selector-category, .multi-selector-expert{
     width: max-content;
+    display: inline-block;
+    margin-top: 2rem;
 }
-.select-field{
-    border: 1px solid rgb(187, 187, 187);
+
+.select-field-category,.select-field-expert{
+    border: 1px solid #E6E6E6;
 }
-.select-field,.category,.list{
-    width: 100%;
-    background-color: white;
-    padding: 0.3rem;
+
+.select-field-expert, .select-field-category,.category,.expert{
+    background-color: #F9F9F9;
+    padding: 0.4rem;
 }
-.list{
-    display: none;
+
+.multi-selector-category {
+  margin-right: 10rem;
 }
-.down-arrow{
+
+.listCatergory,.listExpert{
+    background-color: #F9F9F9;
+    padding: 0;
+}
+
+.category {
+  padding-right: 0.05rem;
+}
+
+.expert {
+  padding-right: 4.48rem;
+}
+
+.down-arrow-category, .down-arrow-expert{
     font-size: 1rem;
     display: inline-block;
-    cursor: pointer;
     color: grey;
     transition: 0.2s linear;
+    cursor: default;
 }
-.category{
+
+.category, .expert{
     display: block;
-    padding-left: 0;
 }
-.category span{
-    float: right;
-    font-size: 0.6rem;
-    padding-top: 6px;
+
+.listCatergory, .listExpert{
+    border-bottom: 0.5px solid #E6E6E6;
+    border-left: 0.5px solid #E6E6E6;
+    border-right: 0.5px solid #E6E6E6;
+    position:absolute;
+    padding: 0.5rem 0.57rem 0.8rem 0.2rem;
+    display: none;
 }
-.category:hover{
+
+.category:hover, .expert:hover{
     background-color: #23A6F040;
 }
+
 .show{
     display: block;
 }
-.rotate180{
+
+.rotate180 {
     transform: rotate(-180deg);
-}
-label {
-  font-size: 0.8rem;
 }

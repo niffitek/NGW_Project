@@ -1,12 +1,12 @@
 <h1>User Experience Design Experts</h1>
 <h2>Find your expert (researcher, professor, author, etc.) in the domain of UX Design.)</h2>
-  <div class="multi-selector">
-      <div class="select-field">
-        <input type="text" name="categories" placeholder="Choose categories" class="input-ca">
-        <span class="down-arrow">&blacktriangledown;</span>
+  <div class="multi-selector-category">
+      <div class="select-field-category">
+        <input type="text" name="categories" placeholder="All categories">
+        <span class="down-arrow-category">&blacktriangledown;</span>
       </div>
 
-      <div class="list">
+      <div class="listCategory">
           {{#each categories}}
               <label class="category">
                   <input type="checkbox" name="{{name}}" id="{{id}}">
@@ -15,9 +15,32 @@
           {{/each}}
       </div>
   </div>
+div class="multi-selector-expert">
+<div class="select-field-expert">
+    <input type="text" name="categories" placeholder="All experts">
+    <span class="down-arrow-expert">&blacktriangledown;</span>
+</div>
 
+<div class="listExpert">
+    <label class="expert">
+        <input type="checkbox" name="">
+        All Experts
+    </label>
+    <label class="expert">
+        <input type="checkbox" name="">
+        Scientists
+    </label>
+    <label class="expert">
+        <input type="checkbox" name="">
+        Writers
+    </label>
+    <label class="expert">
+        <input type="checkbox" name="">
+        Others
+    </label>
+</div>
   <div class="box1">
-    <img src="../images/DonaldNorman.jpeg" alt="Donald_Norman">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Donald_Norman_at_AWF05.jpg/300px-Donald_Norman_at_AWF05.jpg" alt="Donald_Norman">
     <div class="text">
       <h3>Author</h3>
       <h4>Donald Norman</h4>
@@ -53,3 +76,16 @@
     </div>
   </div>
 <p></p>
+          <script>
+          document.querySelector('.select-field-category').addEventListener('click',()=>
+            {
+              document.querySelector('.listCatergory').classList.toggle('show');
+              document.querySelector('.down-arrow-category').classList.toggle('rotate180');
+            });
+
+          document.querySelector('.select-field-expert').addEventListener('click',()=>
+            {
+              document.querySelector('.listExpert').classList.toggle('show');
+              document.querySelector('.down-arrow-expert').classList.toggle('rotate180');
+            });
+          </script>

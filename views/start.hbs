@@ -7,31 +7,17 @@
       </div>
 
       <div class="list">
-        <label class="category">
-          <input type="checkbox" name="">
-          Category 1
-        </label>
-        <label class="category">
-          <input type="checkbox" name="">
-          Category 2
-        </label>
-        <label class="category">
-          <input type="checkbox" name="">
-          Category 3
-        </label>
-        <label class="category">
-          <input type="checkbox" name="">
-          Category 4
-        </label>
-        <label class="category">
-          <input type="checkbox" name="">
-          Category 5
-        </label>
+          {{#each categories}}
+              <label class="category">
+                  <input type="checkbox" name="{{name}}" id="{{id}}">
+                  {{name}}
+              </label>
+          {{/each}}
       </div>
   </div>
 
   <div class="box1">
-    <img src="images/donaldNorman.jpeg" alt="Donald_Norman">
+    <img src="../images/DonaldNorman.jpeg" alt="Donald_Norman">
     <div class="text">
       <h3>Author</h3>
       <h4>Donald Norman</h4>
@@ -67,11 +53,3 @@
     </div>
   </div>
 <p></p>
-          <script>
-          document.querySelector('.select-field').addEventListener('click',()=>{
-          document.querySelector('.list').classList.toggle('show');
-          document.querySelector('.down-arrow').classList.toggle('rotate180');
-
-          });
-
-          </script>

@@ -1,0 +1,23 @@
+@prefix : <http://example.org/> .
+@prefix dbp: <http://dbpedia.org/> .
+@prefix wkd: <http://wikidata.org/> .
+
+:user_research a :category;
+  :id "user_research";
+  :name "User research" .
+
+:usability a :category;
+  :id "usability";
+  :name "Usability" .
+
+:user_interface_design a :category;
+  :id "user_interface_design";
+  :name "User interface design" .
+
+:customer_experience a :category;
+  :id "customer_experience";
+  :name "Customer experience" .
+
+:computer_programming a :category;
+  :id "computer_programming";
+  :name "Computer programming" .

@@ -33,3 +33,73 @@
 :others a :expert;
   :id "others";
   :name "Others" .
+
+:chelsey_glasson a wd:Q68200826 ;
+  :dbrID "Chelsey_Glasson" ;
+  :wdID "Q110726424" ;
+  :category :user_research .
+
+:victoria_nneji a wd:Q68200826 ;
+  :dbrID "Victoria_Chibuogu_Nneji" ;
+  :wdID "Q56043302" ;
+  :category :user_research .
+
+:alan_cooper a wd:Q68200826 ;
+  :dbrID "Alan_Cooper" ;
+  :wdID "Q1194856" ;
+  :category :usability .
+
+:donald_norman a wd:Q68200826 ;
+  :dbrID "Donald_A._Norman" ;
+  :wdID "Q92804" ;
+  :category :usability .
+
+:alexander_raake a wd:Q68200826 ;
+  :dbrID "Alexander_Raake" ;
+  :wdID "Q101173" ;
+  :category :usability .
+
+:jakob_nielsen a wd:Q68200826 ;
+  :dbrID "Jakob_Nielsen_(usability_consultant)" ;
+  :wdID "Q82556" ;
+  :category :interface_design .
+
+:david_smith a wd:Q68200826 ;
+  :dbrID "David_Canfield_Smith" ;
+  :wdID "Q16107137" ;
+  :category :interface_design .
+
+:norm_cox a wd:Q68200826 ;
+  :dbrID "Norm_Cox_(designer)" ;
+  :wdID "Q27922600" ;
+  :category :interface_design .
+
+:pablo_rodriguez a wd:Q68200826 ;
+  :dbrID "Pablo_Rodriguez_(author)" ;
+  :wdID "Q108084712" ;
+  :category :costumer_experience .
+
+:rob_markey a wd:Q68200826 ;
+  :dbrID "Rob_Markey" ;
+  :wdID "Q95043644" ;
+  :category :costumer_experience .
+
+:brad_cleveland a wd:Q68200826 ;
+  :dbrID "Brad_Cleveland" ;
+  :wdID "Q4953844" ;
+  :category :costumer_experience .
+
+:david_gries a wd:Q68200826 ;
+  :dbrID "David_Gries" ;
+  :wdID "Q4149745" ;
+  :category :computer_programming .
+
+:gerald_weinberg a wd:Q68200826 ;
+  :dbrID "Gerald_Weinberg" ;
+  :wdID "Q93132" ;
+  :category :computer_programming .
+
+:edsger_dijkstra a wd:Q68200826 ;
+  :dbrID "Edsger_W._Dijkstra" ;
+  :wdID "Q8556" ;
+  :category :computer_programming .

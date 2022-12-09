@@ -4,7 +4,7 @@ import expressHandlebars from "express-handlebars";
 import fs from "fs"
 import $rdf from "rdflib"
 
-const getPropertyDataDbpedia = async (resource, property, languageFilter) => {
+const getPropertyDataDbpedia = async (resource, property, languageFilter) => { //function to do a SPARQL query on DBpedia
     let result = {
         property: property,
         values: []
@@ -30,12 +30,16 @@ const getPropertyDataDbpedia = async (resource, property, languageFilter) => {
     return result
 }
 
-const getPropertyDataWikidata = async (person_name, property) => {
+const getPropertyDataWikidata = async (resource, property, languageFilter) => { //Function to do a SPARQL query on Wikidata
     let result = {
         property: property,
         values: []
     }
-    const query = `SELECT ?object  WHERE { wd:${person_name} wdt:${property} ?object . }`
+    let query = ""
+    if (languageFilter)
+        query = `SELECT ?object  WHERE { wd:${resource} ${property} ?object . FILTER (langMatches(lang(?object),"en"))}`
+    else
+        query = `SELECT ?object  WHERE { wd:${resource} ${property} ?object . }`
     const client = new ParsingClient({
         endpointUrl: 'https://query.wikidata.org/sparql',
         headers: {
@@ -63,6 +67,7 @@ $rdf.parse(
     "text/turtle"
 )
 
+// Query string to .ttl file to get all categories
 const stringQueryCategory = `
 	SELECT
 		?id
@@ -73,6 +78,7 @@ const stringQueryCategory = `
 		?category <http://example.org/name> ?name .
 	}
 `
+// Query string to .ttl file to get all types of experts
 const stringQueryExperts = `
 	SELECT
 		?id
@@ -84,6 +90,7 @@ const stringQueryExperts = `
 	}
 `
 
+// Query string to .ttl file to get all persons (UX Designer)
 const stringQueryPersons = `
 	SELECT
 		?dbrID
@@ -105,13 +112,12 @@ const stringQueryPersons = `
 	}
 `
 
+//perform the queries
 const queryCategory = $rdf.SPARQLToQuery(stringQueryCategory, false, store)
 const queryExperts = $rdf.SPARQLToQuery(stringQueryExperts, false, store)
 const queryPersons = $rdf.SPARQLToQuery(stringQueryPersons, false, store)
 
-// To see what we get back as result:
-// console.log(store.querySync(query))
-
+// save categories with ID and name to a list
 const categories = store.querySync(queryCategory).map(
     categoryResult => {
         return {
@@ -121,6 +127,7 @@ const categories = store.querySync(queryCategory).map(
     }
 )
 
+// save types of experts with ID and name to a list
 const experts = store.querySync(queryExperts).map(
     expertResult => {
         return {
@@ -130,18 +137,22 @@ const experts = store.querySync(queryExperts).map(
     }
 )
 
+//declare global variable for persons
 let persons = []
 
 const app = express()
 
+// initialize handleBars
 app.engine('hbs', expressHandlebars.engine({
     defaultLayout: "main.hbs"
 }))
 
+//load CSS from file
 app.get("/layout.css", function(request, response) {
     response.sendFile("layout.css", {root: "."})
 })
 
+//render website and pass all the data as model to the frontend
 app.get("/", async (request, response) => {
 
     const model = {
@@ -157,15 +168,26 @@ app.get("/", async (request, response) => {
     response.render("start.hbs", model)
 })
 
+//launch the app and load all the data for the persons from dbpedia and wikidata asynchronously
+//get name, description and picture from dbpedia (if there is none, get it from wikidata)
 app.listen(8080, async () => {
     const queryPersons = $rdf.SPARQLToQuery(stringQueryPersons, false, store)
     persons = []
     let result = store.querySync(queryPersons)
     for (let person of result) {
-        const name = (await getPropertyDataDbpedia(person['?dbrID'].value, "dbp:name", true)).values[0]
-        const description = (await getPropertyDataDbpedia(person['?dbrID'].value, "dbo:abstract", true)).values[0]
-        const imgSrc = (await getPropertyDataDbpedia(person['?dbrID'].value, "dbo:thumbnail", false)).values[0]
-        console.log(imgSrc)
+        let name = (await getPropertyDataDbpedia(person['?dbrID'].value, "dbp:name", true)).values[0]
+        if (name === undefined)
+            name = (await getPropertyDataWikidata(person['?wdID'].value, "rdfs:label", true)).values[0]
+
+        let description = (await getPropertyDataDbpedia(person['?dbrID'].value, "dbo:abstract", true)).values[0]
+        if (description === undefined) {
+            description = (await getPropertyDataWikidata(person['?wdID'].value, "schema:description", true)).values[0]
+        }
+
+        let imgSrc = (await getPropertyDataDbpedia(person['?dbrID'].value, "dbo:thumbnail", false)).values[0]
+        if (imgSrc === undefined)
+            imgSrc = (await getPropertyDataWikidata(person['?wdID'].value, "wdt:P18", false)).values[0]
+
         persons.push({
             dbrID: person['?dbrID'].value,
             wdID: person['?wdID'].value,
@@ -178,4 +200,5 @@ app.listen(8080, async () => {
             expertName: person['?expertName'].value
         })
     }
+    console.log("--- All UX Designers loaded ---")
 })

@@ -92,7 +92,7 @@
   :dbrID "Rob_Markey" ;
   :wdID "Q95043644" ;
   :category :customer_experience ;
-  :expert :author .
+  :expert :writers .
 
 :brad_cleveland a :person ;
   :dbrID "Brad_Cleveland" ;

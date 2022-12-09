@@ -1,11 +1,11 @@
 <h1>User Experience Design Experts</h1>
-<h2>Find your expert (researcher, professor, author, etc.) in the domain of UX Design.)</h2>
+<h2>Find your expert (researcher, scientist, author, etc.) in the domain of UX Design.)</h2>
   <div class="multi-selector-category">
       <div class="select-field-category">
         <input type="text" name="categories" placeholder="All categories">
         <span class="down-arrow-category">&blacktriangledown;</span>
       </div>
-      <div class="listCategory">
+      <div class="listCategory"> <!-- parse the categories and create for each a checkbox -->
           {{#each categories}}
               <label class="category">
                   <input class="input" type="checkbox" name="{{name}}" id="{{id}}">
@@ -20,7 +20,7 @@
       <input type="text" name="experts" placeholder="All experts">
       <span class="down-arrow-expert">&blacktriangledown;</span>
     </div>
-    <div class="listExpert">
+    <div class="listExpert"> <!-- Parse the types of experts and create for each a checkbox -->
       {{#each experts}}
         <label class="expert">
             <input class="input" type="checkbox" name="{{name}}" id="{{id}}">
@@ -30,7 +30,7 @@
     </div>
   </div>
 
-<div class="container">
+<div class="container"> <!-- Empty container element for persons -->
 </div>
 <p></p>
           <script>
@@ -38,27 +38,24 @@
               let checkboxes = document.querySelectorAll('.input');
               let checkedBoxes = [];
 
-              document.querySelector('.select-field-category').addEventListener('click',()=>
-            {
-              document.querySelector('.listCategory').classList.toggle('show');
-              document.querySelector('.down-arrow-category').classList.toggle('rotate180');
-            });
+              console.log(list)
 
-          for (let checkbox of checkboxes) {
+          for (let checkbox of checkboxes) { // add event listener for every checkbox
               checkbox.addEventListener('change',()=>
               {
                   const container = document.querySelector('.container');
+                  //update list of checked checkboxes
                   if (checkbox.checked) {
                       checkedBoxes.push(checkbox.id)
                   } else {
                       const index = checkedBoxes.indexOf(checkbox.id)
                       checkedBoxes.splice(index, 1)
                   }
+                  //remove old person container and create a new one
                   container.remove()
                   const newContainer = document.createElement("div")
                   newContainer.className = "container";
-                  console.log(checkedBoxes)
-                  for (const person of list) {
+                  for (const person of list) { //check for each person in the list if the filter applies if so, create a new element, holding the information
                       if (checkedBoxes.indexOf(person["categoryID"]) > -1 || checkedBoxes.indexOf(person["expertID"]) > -1 ) {
                           let box = document.createElement("div");
                           box.className = "box";
@@ -80,13 +77,21 @@
                           text.appendChild(p);
                           text.appendChild(a);
                           box.appendChild(img);
-                          box.appendChild(text)
-                          newContainer.appendChild(box)
+                          box.appendChild(text);
+                          newContainer.appendChild(box);
                       }
                   }
+                  // append the new container to the frontend
                   document.body.appendChild(newContainer)
               });
           }
+
+          // Event listeners for opening the dropdowns
+          document.querySelector('.select-field-category').addEventListener('click',()=>
+          {
+              document.querySelector('.listCategory').classList.toggle('show');
+              document.querySelector('.down-arrow-category').classList.toggle('rotate180');
+          });
 
           document.querySelector('.select-field-expert').addEventListener('click',()=>
             {

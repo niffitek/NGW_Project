@@ -56,7 +56,7 @@ img {
     object-position: right;
 }
 
-.box1, .box2, .box3 {
+.box {
     display: flex;
     justify-content: flex-start;
     align-items: center;

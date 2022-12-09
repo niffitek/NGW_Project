@@ -8,7 +8,7 @@
       <div class="listCategory">
           {{#each categories}}
               <label class="category">
-                  <input type="checkbox" name="{{name}}" id="{{id}}">
+                  <input class="input" type="checkbox" name="{{name}}" id="{{id}}">
                   {{name}}
               </label>
           {{/each}}
@@ -23,56 +23,70 @@
     <div class="listExpert">
       {{#each experts}}
         <label class="expert">
-            <input type="checkbox" name="{{name}}" id="{{id}}">
+            <input class="input" type="checkbox" name="{{name}}" id="{{id}}">
             {{name}}
         </label>
       {{/each}}
     </div>
-</div>
+  </div>
 
-<div class="box1">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Donald_Norman_at_AWF05.jpg/300px-Donald_Norman_at_AWF05.jpg" alt="Donald_Norman">
-    <div class="text">
-      <h3>Author</h3>
-      <h4>Donald Norman</h4>
-      <p>Donald Arthur Norman (born December 25, 1935)[2][3] is an American researcher, professor, and author.
-      Norman is the director of The Design Lab at University of California, San Diego.[4] He is best known for
-      his books on design, especially The Design of Everyday Things. He is widely regarded for his expertise
-      in the fields of design, usability engineering, and cognitive science,[4] and has shaped the development
-      of the field...
-      </p>
-      <a href="#">Read more</a>
-    </div>
-  </div>
-  <div class="box2">
-    <div class="image"><img class="nelly" src="images/nellyBenHayoun.jpeg" alt=""></div>
-    <div class="text">
-      <h3>Designer</h3>
-      <h4>Nelly Ben Hayoun</h4>
-      <p>Nelly Ben Hayoun is a French designer, artist and filmmaker.[1] Born in Valence, Drôme, France, she now
-      resides in London, United Kingdom. She serves on the Advisory Council of METI (Messaging Extraterrestrial
-      Intelligence) and is the designer of experiences at the SETI Institute (Search for Extraterrestrial Intelligence
-      Institute).[2][3] She is also an exhibitor and keynote speaker who has worked with museums and design
-      centres across the world...</p>
-      <a href="#">Read more</a>
-    </div>
-  </div>
-  <div class="box3">
-    <img src="images/peterJamesThomas.jpeg" alt="">
-    <div class="text">
-      <h3>Entrepreneur</h3>
-      <h4>Peter James Thomas</h4>
-      <p>...</p>
-      <a href="#">Read more</a>
-    </div>
-  </div>
+<div class="container">
+</div>
 <p></p>
           <script>
-          document.querySelector('.select-field-category').addEventListener('click',()=>
+              let list = {{{json persons}}};
+              let checkboxes = document.querySelectorAll('.input');
+              let checkedBoxes = [];
+
+              document.querySelector('.select-field-category').addEventListener('click',()=>
             {
               document.querySelector('.listCategory').classList.toggle('show');
               document.querySelector('.down-arrow-category').classList.toggle('rotate180');
             });
+
+          for (let checkbox of checkboxes) {
+              checkbox.addEventListener('change',()=>
+              {
+                  const container = document.querySelector('.container');
+                  if (checkbox.checked) {
+                      checkedBoxes.push(checkbox.id)
+                  } else {
+                      const index = checkedBoxes.indexOf(checkbox.id)
+                      checkedBoxes.splice(index, 1)
+                  }
+                  container.remove()
+                  const newContainer = document.createElement("div")
+                  newContainer.className = "container";
+                  console.log(checkedBoxes)
+                  for (const person of list) {
+                      if (checkedBoxes.indexOf(person["categoryID"]) > -1) {
+                          let box = document.createElement("div");
+                          box.className = "box";
+                          let img = document.createElement("img");
+                          img.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Donald_Norman_at_AWF05.jpg/300px-Donald_Norman_at_AWF05.jpg"
+                          let text = document.createElement("div")
+                          text.className = "text"
+                          let h3 = document.createElement("h3");
+                          h3.innerHTML = "Author"
+                          let h4 = document.createElement("h4");
+                          h4.innerHTML = person["name"];
+                          let p = document.createElement("p");
+                          p.innerHTML = person["description"];
+                          let a = document.createElement("a");
+                          a.href = "#"
+                          a.innerHTML = "Read More"
+                          text.appendChild(h3);
+                          text.appendChild(h4);
+                          text.appendChild(p);
+                          text.appendChild(a);
+                          box.appendChild(img);
+                          box.appendChild(text)
+                          newContainer.appendChild(box)
+                      }
+                  }
+                  document.body.appendChild(newContainer)
+              });
+          }
 
           document.querySelector('.select-field-expert').addEventListener('click',()=>
             {

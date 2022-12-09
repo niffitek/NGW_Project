@@ -1,8 +1,51 @@
-const express = require('express')
-const expressHandlebars = require('express-handlebars')
+import ParsingClient from "sparql-http-client/ParsingClient.js";
+import express from "express";
+import expressHandlebars from "express-handlebars";
+import fs from "fs"
+import $rdf from "rdflib"
 
-const fs = require('fs')
-const $rdf = require('rdflib')
+const getPropertyDataDbpedia = async (resource, property) => {
+    let result = {
+        property: property,
+        values: []
+    }
+    const query = `SELECT ?object  WHERE { dbr:${resource} ${property} ?object . FILTER (langMatches(lang(?object),"en"))}`
+    const client = new ParsingClient({
+        endpointUrl: 'http://dbpedia.org/sparql',
+        headers: {
+            "Accept": "application/json",
+            "User-Agent": 'Next-Generation-Web-GroupZ/1.0 (scni22yp@student.ju.se) NGW-Project/1.0'}
+    })
+    const bindings = await client.query.select(query)
+    bindings.forEach(row =>
+        Object.entries(row).forEach(([_, value]) => {
+            result.values.push(value.value)
+        })
+    )
+    return result
+}
+
+const getPropertyDataWikidata = async (person_name, property) => {
+    let result = {
+        property: property,
+        values: []
+    }
+    const query = `SELECT ?object  WHERE { wd:${person_name} wdt:${property} ?object . }`
+    const client = new ParsingClient({
+        endpointUrl: 'https://query.wikidata.org/sparql',
+        headers: {
+            "Accept": "application/json",
+            "User-Agent": 'Next-Generation-Web-GroupZ/1.0 (scni22yp@student.ju.se) NGW-Project/1.0'
+        }
+    })
+    const bindings = await client.query.select(query)
+    bindings.forEach(row =>
+        Object.entries(row).forEach(([_, value]) => {
+            result.values.push(value.value)
+        })
+    )
+    return result
+}
 
 const turtleString = fs.readFileSync('experts.ttl').toString()
 
@@ -36,8 +79,23 @@ const stringQueryExperts = `
 	}
 `
 
+const stringQueryPersons = `
+	SELECT
+		?dbrID
+		?wdID
+		?categoryID
+	WHERE {
+		?person a <http://example.org/person> .
+		?person <http://example.org/dbrID> ?dbrID .
+		?person <http://example.org/wdID> ?wdID .
+		?person <http://example.org/category> ?category .
+		?category <http://example.org/id> ?categoryID .
+	}
+`
+
 const queryCategory = $rdf.SPARQLToQuery(stringQueryCategory, false, store)
 const queryExperts = $rdf.SPARQLToQuery(stringQueryExperts, false, store)
+const queryPersons = $rdf.SPARQLToQuery(stringQueryPersons, false, store)
 
 // To see what we get back as result:
 // console.log(store.querySync(query))
@@ -50,6 +108,7 @@ const categories = store.querySync(queryCategory).map(
         }
     }
 )
+
 const experts = store.querySync(queryExperts).map(
     expertResult => {
         return {
@@ -59,7 +118,7 @@ const experts = store.querySync(queryExperts).map(
     }
 )
 
-console.log(experts)
+let persons = []
 
 const app = express()
 
@@ -71,14 +130,32 @@ app.get("/layout.css", function(request, response) {
     response.sendFile("layout.css", {root: "."})
 })
 
-app.get("/", function (request, response){
+app.get("/", async (request, response) => {
 
     const model = {
         categories: categories,
-        experts: experts
+        experts: experts,
+        persons: persons,
+        activePersons: [],
+        json: function(obj) {
+            return JSON.stringify(obj);
+        }
     }
 
     response.render("start.hbs", model)
 })
 
-app.listen(8080)
+app.listen(8080, async () => {
+    const queryPersons = $rdf.SPARQLToQuery(stringQueryPersons, false, store)
+    persons = []
+    let result = store.querySync(queryPersons)
+    for (let person of result) {
+        persons.push({
+            dbrID: person['?dbrID'].value,
+            wdID: person['?wdID'].value,
+            name: (await getPropertyDataDbpedia(person['?dbrID'].value, "dbp:name")).values[0],
+            description: (await getPropertyDataDbpedia(person['?dbrID'].value, "dbo:abstract")).values[0],
+            categoryID: person['?categoryID'].value
+        })
+    }
+})

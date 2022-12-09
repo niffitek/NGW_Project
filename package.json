@@ -1,5 +1,6 @@
 {
   "name": "uxd_experts",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -12,6 +13,7 @@
   "dependencies": {
     "express": "^4.18.2",
     "express-handlebars": "^6.0.6",
-    "rdflib": "^2.2.21"
+    "rdflib": "^2.2.21",
+    "sparql-http-client": "^2.4.1"
   }
 }

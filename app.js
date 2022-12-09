@@ -4,12 +4,17 @@ import expressHandlebars from "express-handlebars";
 import fs from "fs"
 import $rdf from "rdflib"
 
-const getPropertyDataDbpedia = async (resource, property) => {
+const getPropertyDataDbpedia = async (resource, property, languageFilter) => {
     let result = {
         property: property,
         values: []
     }
-    const query = `SELECT ?object  WHERE { dbr:${resource} ${property} ?object . FILTER (langMatches(lang(?object),"en"))}`
+    let query = ""
+    if (languageFilter) {
+        query = `SELECT ?object  WHERE { dbr:${resource} ${property} ?object . FILTER (langMatches(lang(?object),"en"))}`
+    } else {
+        query = `SELECT ?object  WHERE { dbr:${resource} ${property} ?object . }`
+    }
     const client = new ParsingClient({
         endpointUrl: 'http://dbpedia.org/sparql',
         headers: {
@@ -84,12 +89,19 @@ const stringQueryPersons = `
 		?dbrID
 		?wdID
 		?categoryID
+		?categoryName
+		?expertID
+		?expertName
 	WHERE {
 		?person a <http://example.org/person> .
 		?person <http://example.org/dbrID> ?dbrID .
 		?person <http://example.org/wdID> ?wdID .
 		?person <http://example.org/category> ?category .
 		?category <http://example.org/id> ?categoryID .
+		?category <http://example.org/name> ?categoryName .
+		?person <http://example.org/expert> ?expert .
+		?expert <http://example.org/id> ?expertID .
+		?expert <http://example.org/name> ?expertName .
 	}
 `
 
@@ -150,12 +162,20 @@ app.listen(8080, async () => {
     persons = []
     let result = store.querySync(queryPersons)
     for (let person of result) {
+        const name = (await getPropertyDataDbpedia(person['?dbrID'].value, "dbp:name", true)).values[0]
+        const description = (await getPropertyDataDbpedia(person['?dbrID'].value, "dbo:abstract", true)).values[0]
+        const imgSrc = (await getPropertyDataDbpedia(person['?dbrID'].value, "dbo:thumbnail", false)).values[0]
+        console.log(imgSrc)
         persons.push({
             dbrID: person['?dbrID'].value,
             wdID: person['?wdID'].value,
-            name: (await getPropertyDataDbpedia(person['?dbrID'].value, "dbp:name")).values[0],
-            description: (await getPropertyDataDbpedia(person['?dbrID'].value, "dbo:abstract")).values[0],
-            categoryID: person['?categoryID'].value
+            imgSrc: imgSrc,
+            name: name,
+            description: description,
+            categoryID: person['?categoryID'].value,
+            categoryName: person['?categoryName'].value,
+            expertID: person['?expertID'].value,
+            expertName: person['?expertName'].value
         })
     }
 })

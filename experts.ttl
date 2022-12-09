@@ -37,69 +37,83 @@
 :chelsey_glasson a :person ;
   :dbrID "Chelsey_Glasson" ;
   :wdID "Q110726424" ;
-  :category :user_research .
+  :category :user_research ;
+  :expert :writers .
 
 :jakob_nielsen a :person ;
   :dbrID "Jakob_Nielsen_\\(usability_consultant\\)" ;
   :wdID "Q82556" ;
-  :category :user_interface_design .
+  :category :user_interface_design ;
+  :expert :writers .
 
 :norm_cox a :person ;
   :dbrID "Norm_Cox_\\(designer\\)" ;
   :wdID "Q27922600" ;
-  :category :interface_design .
+  :category :interface_design ;
+  :expert :scientists .
 
 :pablo_rodriguez a :person ;
   :dbrID "Pablo_Rodriguez_\\(author\\)" ;
   :wdID "Q108084712" ;
-  :category :customer_experience .
+  :category :customer_experience ;
+  :expert :writers .
 
 :victoria_nneji a :person ;
   :dbrID "Victoria_Chibuogu_Nneji" ;
   :wdID "Q56043302" ;
-  :category :user_research .
+  :category :user_research ;
+  :expert :others .
 
 :alan_cooper a :person ;
   :dbrID "Alan_Cooper" ;
   :wdID "Q1194856" ;
-  :category :usability .
+  :category :usability ;
+  :expert :writers .
 
 :donald_norman a :person ;
-  :dbrID "Donald_A._Norman" ;
+  :dbrID "Don_Norman" ;
   :wdID "Q92804" ;
-  :category :usability .
+  :category :usability ;
+  :expert :scientists .
 
 :alexander_raake a :person ;
   :dbrID "Alexander_Raake" ;
   :wdID "Q101173" ;
-  :category :usability .
+  :category :usability ;
+  :expert :writers .
 
 :david_smith a :person ;
   :dbrID "David_Canfield_Smith" ;
   :wdID "Q16107137" ;
-  :category :user_interface_design .
+  :category :user_interface_design ;
+  :expert :scientists .
 
 :rob_markey a :person ;
   :dbrID "Rob_Markey" ;
   :wdID "Q95043644" ;
-  :category :customer_experience .
+  :category :customer_experience ;
+  :expert :author .
 
 :brad_cleveland a :person ;
   :dbrID "Brad_Cleveland" ;
   :wdID "Q4953844" ;
-  :category :customer_experience .
+  :category :customer_experience ;
+  :expert :writers .
 
 :david_gries a :person ;
   :dbrID "David_Gries" ;
   :wdID "Q4149745" ;
-  :category :computer_programming .
+  :category :computer_programming ;
+  :expert :scientists .
 
 :gerald_weinberg a :person ;
   :dbrID "Gerald_Weinberg" ;
   :wdID "Q93132" ;
-  :category :computer_programming .
+  :category :computer_programming ;
+  :expert :scientists .
 
 :edsger_dijkstra a :person ;
   :dbrID "Edsger_W._Dijkstra" ;
   :wdID "Q8556" ;
-  :category :computer_programming .
+  :category :computer_programming ;
+  :expert :scientists .

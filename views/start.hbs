@@ -59,21 +59,21 @@
                   newContainer.className = "container";
                   console.log(checkedBoxes)
                   for (const person of list) {
-                      if (checkedBoxes.indexOf(person["categoryID"]) > -1) {
+                      if (checkedBoxes.indexOf(person["categoryID"]) > -1 || checkedBoxes.indexOf(person["expertID"]) > -1 ) {
                           let box = document.createElement("div");
                           box.className = "box";
                           let img = document.createElement("img");
-                          img.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Donald_Norman_at_AWF05.jpg/300px-Donald_Norman_at_AWF05.jpg"
+                          img.src = person["imgSrc"]
                           let text = document.createElement("div")
                           text.className = "text"
                           let h3 = document.createElement("h3");
-                          h3.innerHTML = "Author"
+                          h3.innerHTML = person["categoryName"] + " | " + person["expertName"]
                           let h4 = document.createElement("h4");
                           h4.innerHTML = person["name"];
                           let p = document.createElement("p");
                           p.innerHTML = person["description"];
                           let a = document.createElement("a");
-                          a.href = "#"
+                          a.href = "https://en.wikipedia.org/wiki/" + person["dbrID"]
                           a.innerHTML = "Read More"
                           text.appendChild(h3);
                           text.appendChild(h4);
